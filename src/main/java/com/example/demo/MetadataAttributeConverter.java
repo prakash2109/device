@@ -3,17 +3,19 @@ package com.example.demo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.AttributeConverter;
+import jakarta.persistence.Converter;
 
-public class InterfacesConverter implements AttributeConverter<Interfaces, String> {
+@Converter
+public class MetadataAttributeConverter implements AttributeConverter<Metadata, String> {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
-    public String convertToDatabaseColumn(Interfaces interfaces) {
-        if (interfaces == null){
+    public String convertToDatabaseColumn(Metadata metadata) {
+        if (metadata == null) {
             return null;
         } else {
             try {
-                return objectMapper.writeValueAsString(interfaces);
+                return objectMapper.writeValueAsString(metadata);
             } catch (JsonProcessingException jpe) {
                 return null;
             }
@@ -21,9 +23,9 @@ public class InterfacesConverter implements AttributeConverter<Interfaces, Strin
     }
 
     @Override
-    public Interfaces convertToEntityAttribute(String value) {
+    public Metadata convertToEntityAttribute(String value) {
         try {
-            return objectMapper.readValue(value, Interfaces.class);
+            return objectMapper.readValue(value, Metadata.class);
         } catch (JsonProcessingException e) {
             return null;
         }

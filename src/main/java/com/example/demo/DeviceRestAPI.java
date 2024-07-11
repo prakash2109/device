@@ -8,19 +8,19 @@ import java.util.List;
 @RestController
 public class DeviceRestAPI {
 
-    private deviceRepository DeviceRepository;
+    private DeviceRepository deviceRepository;
 
-    public DeviceRestAPI(deviceRepository DeviceRepository) {
-        this.DeviceRepository = DeviceRepository;
+    public DeviceRestAPI(DeviceRepository deviceRepository) {
+        this.deviceRepository = deviceRepository;
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/v1/createDevice")
-    public device1 createDevice(@Valid @RequestBody device1 device) {
-        return DeviceRepository.save(device);
+    public Device createDevice(@Valid @RequestBody Device device) {
+        return deviceRepository.save(device);
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/v1/getDevice/{param}")
-    public List<device1> getDevice(@PathVariable String param){
-        return DeviceRepository.findByIDorName(param);
+    public List<Device> getDevice(@PathVariable String param){
+        return deviceRepository.findByIDorName(param);
     }
 }
